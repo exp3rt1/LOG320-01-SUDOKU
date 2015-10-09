@@ -27,7 +27,6 @@ public class LectureFichier
 				ligne = br.readLine();
 				if(ligne.length() > 9)
 				{
-					System.out.print("mauvais");
 					throw new FormatException();
 				}
 				
@@ -57,53 +56,23 @@ public class LectureFichier
 		return table;
 	}
 	
+	// S'il retourne faux, le format ou la table est mal fait
 	public boolean verifierTableValide()
 	{
 		// Vérifie s'il n'y a pas de chiffre qui se répète dans une ligne ou colonne ou une zone
 		int[][] table = this.lecture();
 		
 		if(table != null)
-		{
+		{			
 			for(int i=0; i < 9; i++)
 			{
 				for(int j=0; j < 9; j++)
 				{
-					for(int k=i+1; k < 9; k++)
+					if(!this.estValide(table, i, j, table[i][j]))
 					{
-						if(k == 9)
-						{
-							k = 0;
-						}
-						else if(k == i)
-						{
-							break;
-						}
-						else if(table[i][k] == table[i][j])
-						{
-							return false;
-						}
+						return false;
 					}
-					
-					for(int k=j+1; k < 9; k++)
-					{
-						if(k == 9)
-						{
-							k = 0;
-						}
-						else if(k == j)
-						{
-							break;
-						}
-						else if(table[i][k] == table[i][j])
-						{
-							System.out.print("meme");
-							return false;
-						}
-					}
-					
-					System.out.print(table[i][j]);
 				}
-				System.out.print("\n");
 			}
 			return true;
 		}
@@ -111,5 +80,51 @@ public class LectureFichier
 		{
 			return false;
 		}
+	}
+	
+	public boolean estValide(int[][] table, int x, int y, int nombre)
+	{
+		boolean valide = true;
+		
+		for(int i=0; i < 9; i++)
+		{
+			if(table[x][i] == nombre && nombre != 0)
+			{
+				if(i != y)
+				{
+					valide = false;
+				}
+			}
+		}
+		
+		for(int i=0; i < 9; i++)
+		{
+			if(table[i][y] == nombre && nombre != 0)
+			{
+				if(i != x)
+				{
+					valide = false;
+				}
+			}
+		}
+		
+		int blocLigne = (int) Math.floor(x/3)*3;
+		int blocColonne = (int) Math.floor(y/3)*3;
+		
+		for(int i=blocLigne; i < blocLigne+3; i++)
+		{
+			for(int j=blocColonne; j < blocColonne+3; j++)
+			{
+				if(table[i][j] == nombre && nombre != 0)
+				{
+					if(i != x && j != y)
+					{
+						valide = false;
+					}
+				}
+			}
+		}
+		
+		return valide;
 	}
 }
