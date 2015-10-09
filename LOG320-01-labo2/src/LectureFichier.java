@@ -56,8 +56,8 @@ public class LectureFichier
 		return table;
 	}
 	
-	// S'il retourne faux, le format ou la table est mal fait
-	public boolean verifierTableValide()
+	// retourne le tableau, si le format ou la table est valide
+	public int[][] verifierTableValide()
 	{
 		// Vérifie s'il n'y a pas de chiffre qui se répète dans une ligne ou colonne ou une zone
 		int[][] table = this.lecture();
@@ -70,15 +70,15 @@ public class LectureFichier
 				{
 					if(!this.estValide(table, i, j, table[i][j]))
 					{
-						return false;
+						return null;
 					}
 				}
 			}
-			return true;
+			return table;
 		}
 		else
 		{
-			return false;
+			return null;
 		}
 	}
 	

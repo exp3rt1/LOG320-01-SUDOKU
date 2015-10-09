@@ -1,7 +1,9 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -116,6 +118,30 @@ public class SudokuUI extends JFrame {
 		      public void actionPerformed(ActionEvent e)
 		      {
 		    	  //import
+		    	  JFileChooser fileChooser = new JFileChooser();		    	  
+		    	  int option = fileChooser.showOpenDialog(SudokuUI.this);
+		    	  
+		    	  if (option == JFileChooser.APPROVE_OPTION) 
+		    	  {
+		    		  try 
+		    		  {
+		    			  LectureFichier lectureFichier = new LectureFichier(fileChooser.getSelectedFile().getAbsolutePath());
+		    			  int[][] table = lectureFichier.verifierTableValide();
+		    			  
+		    			  if(table != null)
+		    			  {
+		    				  System.out.print("Fichier Valide");
+		    			  }
+		    			  else
+		    			  {
+		    				  System.out.print("Fichier non Valide");
+		    			  }
+		    		  } 
+		    		  catch (FileNotFoundException e1) 
+		    		  {
+		    			  e1.printStackTrace();
+		    		  }
+		          }
 		      }
 		});
 		
