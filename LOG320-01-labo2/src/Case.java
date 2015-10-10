@@ -2,21 +2,25 @@ import java.util.ArrayList;
 
 
 public class Case {
-    public ArrayList<Integer> possibilities = new ArrayList<Integer>();
-    public int value;
+    public Integer[] hintArray = new Integer[9];
+    public int caseValue;
     
     public Case(int value){
-        this.value = value;
+        this.caseValue = value;
     }
     
-    public Case(int value, ArrayList<Integer> possibilities){
-        this.value = value;
-        this.possibilities = possibilities;
+    public Case(int value, Integer[] hintArray){
+        this.caseValue = value;
+        this.hintArray = hintArray;
     }
     
     public boolean equals(Case o){
-        if(this.value == o.value) 
+        if(this.caseValue == o.caseValue) 
             return true;
         return false;
+    }
+    
+    public void removeHint(int hint){
+    	this.hintArray[hint-1] = null;
     }
 }
