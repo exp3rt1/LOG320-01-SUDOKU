@@ -25,5 +25,13 @@ public class Table {
     	Block block = blockArray[blockLine][blockColumn];
     	return block.getCase(blockLine, blockColumn);
     }
+    
+    public Block getBlock(int line, int column){
+    	int blockLine = (line+1) % 3;
+    	int blockColumn = (column+1) % 3;
+    	
+    	Block block = blockArray[blockLine][blockColumn];
+    	return block;
+    }
 
 }

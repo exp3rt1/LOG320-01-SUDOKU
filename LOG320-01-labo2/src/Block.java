@@ -10,9 +10,9 @@ public class Block {
             	caseArray[i][j] = value;
         }
         
-        public void fillBlock(Case[][] block){
-            if(block.length == caseArray.length)
-            	caseArray = block;
+        public void fillBlock(Case[][] blockCase){
+            if(blockCase.length == caseArray.length)
+            	caseArray = blockCase;
         }
         
         public boolean validBlock(){
