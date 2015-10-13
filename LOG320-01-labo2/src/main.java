@@ -70,6 +70,7 @@ public class main {
 			else
 			{
 				tableCase = table.getCase(ligne, colonne++);
+
 			}
 		}
 		
@@ -100,6 +101,8 @@ public class main {
 					recursif1(ligne, colonne+1);
 				}
 			}
+			
+			
 		}
 	}
 	
