@@ -1,3 +1,7 @@
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class main {
 	static Table table = new Table();
@@ -13,10 +17,12 @@ public class main {
 	public void algorithme()
 	{
 		recursif1(0,0);
+		
+		// Si ca vient ici, le sudoku est invalid
 	}
 	
 	//TODO: a revoir, je vais regarder plus en détail mardi
-	public void recursif(Table table, int i, int j, Case tableCase)
+	/*public void recursif(Table table, int i, int j, Case tableCase)
 	{
 		i=0;
 		j=0;
@@ -42,7 +48,7 @@ public class main {
 		++j;
 		
 		recursif(table, i, j, tableCase);
-	}
+	}*/
 	
 	
 	//TODO: a revoir
@@ -50,26 +56,52 @@ public class main {
 	{
 		Case tableCase = table.getCase(ligne, colonne);
 		
-		// Arraylist?
-		for(int i=0; i < tableCase.hintArray.length; i++)
+		// Si la case a déjà une valeur, donc le nombre d'indice est à 0
+		if(tableCase.caseValue == 0)
 		{
-			// vérifie si il y a pas d'erreur causé par des case avant
-			if(!table.getBlock(ligne,colonne).validBlock())
-				return;
-			
-			// Met la valeur dans le tableau
-			tableCase.caseValue = tableCase.hintArray[i];
-			
-			// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-		
 			if(colonne == 8)
 			{
-				recursif1(ligne++, 0);
+				if(ligne != 8)
+				{
+					colonne = 0;
+					tableCase = table.getCase(ligne++, colonne);
+				}
 			}
 			else
 			{
-				recursif1(ligne, colonne++);
+				tableCase = table.getCase(ligne, colonne++);
 			}
+		}
+		
+		//Enumeration<Integer> cle = tableCase.hintHashTable.keys();
+		Iterator<Map.Entry<Integer, Integer>> iterateur = tableCase.hintHashTable.entrySet().iterator();
+		
+		// Arraylist?
+		while(iterateur.hasNext())
+		{		
+			// Met la valeur dans le tableau
+			tableCase.caseValue = iterateur.next().getKey();
+			
+			// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
+			
+			// si la case mise est valide
+			if(!table.getBlock(ligne,colonne).validBlock())
+			{
+				if(colonne == 8)
+				{
+					if(ligne != 8)
+					{
+						// derniere
+						recursif1(ligne+1, 0);
+					}
+				}
+				else
+				{
+					recursif1(ligne, colonne+1);
+				}
+			}
+			
+			
 		}
 	}
 }
