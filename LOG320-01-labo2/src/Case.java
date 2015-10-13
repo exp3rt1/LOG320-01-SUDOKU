@@ -1,17 +1,19 @@
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 
 public class Case {
-    public Integer[] hintArray = new Integer[9];
+    public Hashtable<Integer, Integer> hintHashTable = new Hashtable<Integer, Integer>();
     public int caseValue;
     
     public Case(int value){
         this.caseValue = value;
     }
     
-    public Case(int value, Integer[] hintArray){
+    public Case(int value, Hashtable<Integer, Integer> hintHashTable){
         this.caseValue = value;
-        this.hintArray = hintArray;
+        
+        this.hintHashTable = hintHashTable;
     }
     
     public boolean equals(Case o){
@@ -21,6 +23,6 @@ public class Case {
     }
     
     public void removeHint(int hint){
-    	this.hintArray[hint-1] = null;
+    	this.hintHashTable.remove(hint-1);
     }
 }

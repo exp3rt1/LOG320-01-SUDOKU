@@ -15,6 +15,7 @@ public class Block {
             	caseArray = blockCase;
         }
         
+        //TODO: a revoir
         public boolean validBlock(){
             ArrayList<Integer> values = new ArrayList<Integer>();
             for(int i=0; i != maxLength; ++i){
