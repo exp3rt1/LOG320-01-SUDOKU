@@ -74,10 +74,8 @@ public class main {
 			}
 		}
 		
-		//Enumeration<Integer> cle = tableCase.hintHashTable.keys();
 		Iterator<Map.Entry<Integer, Integer>> iterateur = tableCase.hintHashTable.entrySet().iterator();
 		
-		// Arraylist?
 		while(iterateur.hasNext())
 		{		
 			// Met la valeur dans le tableau
@@ -86,7 +84,7 @@ public class main {
 			// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
 			
 			// si la case mise est valide
-			if(!table.getBlock(ligne,colonne).validBlock())
+			if(!table.caseValide(tableCase.caseValue, ligne, colonne))
 			{
 				if(colonne == 8)
 				{

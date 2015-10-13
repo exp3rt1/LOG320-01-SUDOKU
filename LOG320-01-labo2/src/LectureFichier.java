@@ -57,7 +57,7 @@ public class LectureFichier
 	}
 	
 	// retourne le tableau, si le format ou la table est valide
-	public int[][] verifierTableValide()
+	public Case[][] verifierTableValide()
 	{
 		// Vérifie s'il n'y a pas de chiffre qui se répète dans une ligne ou colonne ou une zone
 		int[][] table = this.lecture();
@@ -74,12 +74,26 @@ public class LectureFichier
 					}
 				}
 			}
-			return table;
+			return remplirTable(table);
 		}
 		else
 		{
 			return null;
 		}
+	}
+	
+	public Case[][] remplirTable(int[][] table)
+	{
+		Case[][] cases = new Case[table.length][table.length];
+		for (int i = 0; i < table.length; i++) 
+		{
+			for (int j = 0; j < table.length; j++) 
+			{
+				cases[i][j] = new Case(table[i][j]);
+			}
+		}
+		
+		return cases;
 	}
 	
 	public boolean estValide(int[][] table, int x, int y, int nombre)
