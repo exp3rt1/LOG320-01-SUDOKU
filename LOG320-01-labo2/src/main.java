@@ -74,10 +74,8 @@ public class main {
 			}
 		}
 		
-		//Enumeration<Integer> cle = tableCase.hintHashTable.keys();
 		Iterator<Map.Entry<Integer, Integer>> iterateur = tableCase.hintHashTable.entrySet().iterator();
 		
-		// Arraylist?
 		while(iterateur.hasNext())
 		{		
 			// Met la valeur dans le tableau
@@ -86,7 +84,7 @@ public class main {
 			// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
 			
 			// si la case mise est valide
-			if(!table.getBlock(ligne,colonne).validBlock())
+			if(!table.caseValide(tableCase.caseValue, ligne, colonne))
 			{
 				if(colonne == 8)
 				{
@@ -113,35 +111,8 @@ public class main {
 		for(int j = 0; j<9; j++){//col
 			for(int i = 0; i<9; i++){//lig
 				currentCase = table.getCase(i, j);
-				if (currentCase.caseValue == 0){ //if case is empty
-					
-				//check in the block
-					currentBlock = table.getBlock(i, j);
-					for(int c = 0; c<3; c++){
-						for(int l=0; l<3;l++){
-							compareValue = currentBlock.getCase(l, c).caseValue;
-							if( compareValue > 0){//if the block case has a value
-								//remove the key from the possible hints
-								currentCase.hintHashTable.remove(compareValue);
-							}
-						}
-					}
-					
-				//check the line
-					for(int c = 0; c<9; c++){
-						compareValue = table.getCase(i, c).caseValue;
-						if(compareValue > 0){
-							currentCase.hintHashTable.remove(compareValue);
-						}
-					}
-					
-				//check the column
-					for(int l = 0; l<9; l++){
-						compareValue = table.getCase(l, j).caseValue;
-						if(compareValue > 0){
-							currentCase.hintHashTable.remove(compareValue);
-						}
-					}
+				if (currentCase.caseValue > 0){ //if case is empty
+					table.removeHints(i, j, currentCase.caseValue);
 				}
 			}
 		}
