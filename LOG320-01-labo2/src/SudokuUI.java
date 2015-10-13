@@ -126,7 +126,7 @@ public class SudokuUI extends JFrame {
 		    		  try 
 		    		  {
 		    			  LectureFichier lectureFichier = new LectureFichier(fileChooser.getSelectedFile().getAbsolutePath());
-		    			  int[][] table = lectureFichier.verifierTableValide();
+		    			  Case[][] table = lectureFichier.verifierTableValide();
 		    			  
 		    			  if(table != null)
 		    			  {
