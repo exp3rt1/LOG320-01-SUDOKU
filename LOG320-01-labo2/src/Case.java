@@ -23,6 +23,14 @@ public class Case {
     }
     
     public void removeHint(int hint){
-    	this.hintHashTable.remove(hint-1);
+    	this.hintHashTable.remove(hint);
+    }
+    
+    public Integer getNext(int index){
+        for(int i=index+1; i <= 9; ++i){
+            if(hintHashTable.get(i) != null)
+                return hintHashTable.get(i);
+        }
+        return -1;
     }
 }

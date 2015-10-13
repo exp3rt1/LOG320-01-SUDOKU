@@ -3,6 +3,52 @@ import java.util.ArrayList;
 
 public class Block {
         private int maxLength = 3;
+        private int lineStart;
+        private int lineEnd;
+        private int columnStart;
+        private int columnEnd;
+        
+        public Block(int lineStart, int lineEnd, int columnStart, int columnEnd){
+            this.lineStart = lineStart;
+            this.lineEnd = lineEnd;
+            this.columnStart = columnStart;
+            this.columnEnd = columnEnd;
+        }
+        
+        public int getLineStart() {
+            return lineStart;
+        }
+
+        public void setLineStart(int lineStart) {
+            this.lineStart = lineStart;
+        }
+
+        public int getLineEnd() {
+            return lineEnd;
+        }
+
+        public void setLineEnd(int lineEnd) {
+            this.lineEnd = lineEnd;
+        }
+
+        public int getColumnStart() {
+            return columnStart;
+        }
+
+        public void setColumnStart(int columnStart) {
+            this.columnStart = columnStart;
+        }
+
+        public int getColumnEnd() {
+            return columnEnd;
+        }
+
+        public void setColumnEnd(int columnEnd) {
+            this.columnEnd = columnEnd;
+        }
+/*
+        
+        
         Case[][] caseArray = new Case[maxLength][maxLength];
         
         public void fillBlock(int i, int j, Case value){
@@ -35,8 +81,10 @@ public class Block {
             return true;
         }
         
+        
+        
         public Case getCase(int line, int column){
         	return caseArray[line][column];
         }
-
+*/
 }
