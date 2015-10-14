@@ -8,12 +8,9 @@ public class Case {
     
     public Case(int value){
         this.caseValue = value;
-    }
-    
-    public Case(int value, Hashtable<Integer, Integer> hintHashTable){
-        this.caseValue = value;
-        
-        this.hintHashTable = hintHashTable;
+        for(int i=1; i != 10; ++i){
+            hintHashTable.put(i, 0);
+        }
     }
     
     public boolean equals(Case o){

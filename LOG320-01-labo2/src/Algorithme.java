@@ -116,6 +116,12 @@ public class Algorithme
 		}
 	}
 	
+	/**
+	 * Remet les hints par rapport à la case sélectionner
+	 * Met la valeur de la case a 0
+	 * @param line
+	 * @param column
+	 */
 	public void putHintsBack(int line, int column){
 	    table.enableHints(line, column, table.getCase(line, column).caseValue);
 	    table.getCase(line, column).caseValue = 0;
