@@ -126,11 +126,13 @@ public class SudokuUI extends JFrame {
 		    		  try 
 		    		  {
 		    			  LectureFichier lectureFichier = new LectureFichier(fileChooser.getSelectedFile().getAbsolutePath());
-		    			  Case[][] table = lectureFichier.verifierTableValide();
+		    			  Case[][] cases = lectureFichier.verifierTableValide();
 		    			  
-		    			  if(table != null)
+		    			  if(cases != null)
 		    			  {
 		    				  System.out.print("Fichier Valide");
+		    				  Algorithme algo = new Algorithme(cases);
+		    				  algo.algorithme();
 		    			  }
 		    			  else
 		    			  {

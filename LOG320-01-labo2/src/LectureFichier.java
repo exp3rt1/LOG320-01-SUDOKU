@@ -27,7 +27,7 @@ public class LectureFichier
 				ligne = br.readLine();
 				if(ligne.length() > 9)
 				{
-					throw new FormatException();
+					throw new FormatException("Mauvais format");
 				}
 				
 				for(int j=0; j < 9; j++)
