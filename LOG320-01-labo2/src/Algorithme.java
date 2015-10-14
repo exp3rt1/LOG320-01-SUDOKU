@@ -79,6 +79,7 @@ public class Algorithme
 							// derniere
 							this.resoudreSudoku(ligne+1, 0);
 							// Remettre les hints enlevés
+							this.putHintsBack(ligne, colonne);
 						}
 						else
 						{
@@ -89,6 +90,7 @@ public class Algorithme
 					{
 						this.resoudreSudoku(ligne, colonne+1);
 						// Remettre les hints enlevés
+						this.putHintsBack(ligne, colonne);
 					}
 				}
 			}			
