@@ -34,14 +34,13 @@ public class Algorithme
 		Case tableCase = table.getCase(ligne, colonne);
 		
 		// Si la case a déjà une valeur, donc le nombre d'indice est à 0
-		if(tableCase.caseValue == 0)
+		if(tableCase.caseValue != 0)
 		{
 			if(colonne == 8)
 			{
 				if(ligne != 8)
 				{
-					colonne = 0;
-					tableCase = table.getCase(ligne++, colonne);
+					this.resoudreSudoku(ligne++, 0);
 				}
 				else
 				{
@@ -50,8 +49,7 @@ public class Algorithme
 			}
 			else
 			{
-				tableCase = table.getCase(ligne, colonne++);
-
+				this.resoudreSudoku(ligne, colonne++);
 			}
 		}
 		
@@ -67,6 +65,7 @@ public class Algorithme
 					tableCase.caseValue = iterateur.next().getKey();
 				
 				// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
+				this.table.removeHints(ligne, colonne, tableCase.caseValue);
 				
 				// si la case mise est valide
 				if(!table.caseValide(tableCase.caseValue, ligne, colonne))
@@ -77,6 +76,7 @@ public class Algorithme
 						{
 							// derniere
 							this.resoudreSudoku(ligne+1, 0);
+							// Remettre les hints enlevés
 						}
 						else
 						{
@@ -86,6 +86,7 @@ public class Algorithme
 					else
 					{
 						this.resoudreSudoku(ligne, colonne+1);
+						// Remettre les hints enlevés
 					}
 				}
 			}			
