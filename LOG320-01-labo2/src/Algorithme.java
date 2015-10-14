@@ -67,7 +67,7 @@ public class Algorithme
 					tableCase.caseValue = iterateur.next().getKey();
 				
 				// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-				this.table.removeHints(ligne, colonne, tableCase.caseValue);
+				this.table.disableHints(ligne, colonne, tableCase.caseValue);
 				
 				// si la case mise est valide
 				if(!table.caseValide(tableCase.caseValue, ligne, colonne))
@@ -110,10 +110,15 @@ public class Algorithme
 				
 				if (currentCase.caseValue > 0)//if case is empty
 				{ 
-					table.removeHints(i, j, currentCase.caseValue);
+					table.disableHints(i, j, currentCase.caseValue);
 				}
 			}
 		}
+	}
+	
+	public void putHintsBack(int line, int column){
+	    table.enableHints(line, column, table.getCase(line, column).caseValue);
+	    table.getCase(line, column).caseValue = 0;
 	}
 }
 

@@ -22,12 +22,23 @@ public class Case {
         return false;
     }
     
-    public void removeHint(int hint){
-    	this.hintHashTable.remove(hint);
+    /**
+     * Réduit le nombre de disable de l'indice jusqu'à 0
+     * @param hint
+     */
+    public void enableHint(int hint){
+        if(this.hintHashTable.get(hint) > 0)
+            this.hintHashTable.put(hint, this.hintHashTable.get(hint)-1);
     }
     
+    /**
+     * Permet au hint de la case d'être désactivé selon le nombre de fois appelé
+     * @param hint
+     */
     public void disableHint(int hint){
-    	this.hintHashTable.put(hint, 1);
+        if(this.hintHashTable.get(hint) <= 3)
+            this.hintHashTable.put(hint, this.hintHashTable.get(hint)+1);
+    	//this.hintHashTable.put(hint, 1);
     }
     
     public Integer getNext(int index){

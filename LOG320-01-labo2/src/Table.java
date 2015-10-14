@@ -7,37 +7,52 @@ public class Table {
 	public Table(Case[][] caseArray) {
 		totalNbOfLines=9;
 		totalNbOfColumns=9;
-		caseArray = caseArray;
+		this.caseArray = caseArray;
 	}
 	
-    public void removeHints(int line, int column, int hint){
-        this.getBlock(line, column);
-    	for(int i=0; i != totalNbOfLines; ++i){
-    		for(int j=0; j !=totalNbOfColumns; ++j){
-    			if(i == line || j == column)
-    				this.getCase(i,j).removeHint(hint);
-    		}
-    	}
-    	//TODO: this.getBlock(line, column).removeHints(hint);
-    }
+    
     public void disableHints(int line, int column, int hint){
-    	this.getBlock(line, column);
+    	Block block = this.getBlock(line, column);
     	for(int i=0; i != totalNbOfLines; ++i){
     		for(int j=0; j !=totalNbOfColumns; ++j){
-    			if(i == line || j == column)
+    			if((i == line || j == column) 
+    			        && (line < block.getLineStart() || block.getLineEnd() > line)
+    			        && (column < block.getColumnStart() || block.getColumnEnd() > column))
     				this.getCase(i,j).disableHint(hint);
     		}
     	}
-    }
-    
-    
-    public void removeBlockHints(Block block){
-      //TODO: block
-    }
-    
-    public void disableBlockHints(Block block){
     	
+    	disableBlockHints(block, hint);
     }
+    
+    public void disableBlockHints(Block block, int hint){
+    	for(int i=block.getLineStart(); i != block.getLineEnd(); ++i){
+    	    for(int j=block.getColumnStart(); j !=block.getColumnEnd(); ++j)
+    	        this.getCase(i, j).disableHint(hint);
+    	}
+    }
+    
+    public void enableHints(int line, int column, int hint){
+        Block block = this.getBlock(line, column);
+        for(int i=0; i != totalNbOfLines; ++i){
+            for(int j=0; j !=totalNbOfColumns; ++j){
+                if((i == line || j == column) 
+                        && (line < block.getLineStart() || block.getLineEnd() > line)
+                        && (column < block.getColumnStart() || block.getColumnEnd() > column))
+                    this.getCase(i,j).enableHint(hint);
+            }
+        }
+        
+        enableBlockHints(block, hint);
+    }
+    
+    private void enableBlockHints(Block block, int hint){
+        for(int i=block.getLineStart(); i != block.getLineEnd(); ++i){
+            for(int j=block.getColumnStart(); j !=block.getColumnEnd(); ++j)
+                this.getCase(i, j).enableHint(hint);
+        }
+    }
+    
     
     public Case getCase(int line, int column){
     	return caseArray[line][column];
