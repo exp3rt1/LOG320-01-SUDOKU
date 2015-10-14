@@ -8,14 +8,19 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
-public class SudokuUI extends JFrame {
-	public SudokuUI(){
+public class SudokuUI extends JFrame 
+{
+	private JTextField sudoku[][] = null;
+	private Case cases[][] = null;
+	
+	public SudokuUI()
+	{
 		this.setSize(350,290);
 		this.getContentPane().setLayout(null);
 		//declare grid
 		
 		
-		JTextField sudoku[][] = new JTextField[9][9];
+		this.sudoku = new JTextField[9][9];
 		
 		for (int i = 0; i < sudoku.length; i++) 
 		{
@@ -27,6 +32,7 @@ public class SudokuUI extends JFrame {
 				int posY = i*25+10 + (int)Math.floor(i/3) * 5, posX = j*25+10 + (int)Math.floor(j/3) * 5;
 				
 				sudoku[i][j].setBounds(posY, posX, 20, 20);
+				sudoku[i][j].setHorizontalAlignment(JTextField.CENTER);
 			}
 		}		
 		
@@ -51,13 +57,12 @@ public class SudokuUI extends JFrame {
 		    		  try 
 		    		  {
 		    			  LectureFichier lectureFichier = new LectureFichier(fileChooser.getSelectedFile().getAbsolutePath());
-		    			  Case[][] cases = lectureFichier.verifierTableValide();
+		    			  SudokuUI.this.cases = lectureFichier.verifierTableValide();
 		    			  
-		    			  if(cases != null)
+		    			  if(SudokuUI.this.cases != null)
 		    			  {
 		    				  System.out.print("Fichier Valide");
-		    				  Algorithme algo = new Algorithme(cases);
-		    				  algo.algorithme();
+		    				  SudokuUI.this.afficheSudoku(SudokuUI.this.cases);
 		    			  }
 		    			  else
 		    			  {
@@ -78,6 +83,12 @@ public class SudokuUI extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				//solve
+				if(SudokuUI.this.cases != null)
+				{
+					System.out.print("Solve");
+					Algorithme algo = new Algorithme(SudokuUI.this.cases);
+					algo.algorithme();
+				}
 			}
 		 });
 		
@@ -91,5 +102,17 @@ public class SudokuUI extends JFrame {
 		//Set-up the window
 		
         setVisible(true);
+	}
+	
+	public void afficheSudoku(Case cases[][])
+	{
+		for (int i = 0; i < sudoku.length; i++) 
+		{
+			for (int j = 0; j < sudoku.length; j++) 
+			{
+				if(cases[i][j].caseValue != 0)
+					sudoku[i][j].setText("" + cases[i][j].caseValue);
+			}
+		}
 	}
 }
