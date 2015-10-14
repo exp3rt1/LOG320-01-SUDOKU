@@ -67,7 +67,7 @@ public class Algorithme
 					tableCase.caseValue = iterateur.next().getKey();
 				
 				// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-				this.table.disableHints(ligne, colonne, tableCase.caseValue);
+				this.table.removeHints(ligne, colonne, tableCase.caseValue);
 				
 				// si la case mise est valide
 				if(!table.caseValide(tableCase.caseValue, ligne, colonne))
@@ -116,3 +116,4 @@ public class Algorithme
 		}
 	}
 }
+
