@@ -15,6 +15,7 @@ public class Algorithme
 	
 	public void algorithme()
 	{
+		// Le temps commence ici
 		this.cleanupHints();
 		this.resoudreSudoku(0,0);
 		
@@ -26,6 +27,7 @@ public class Algorithme
 		else
 		{
 			// une solution est possible
+			// Le temps termine ici
 		}
 	}
 	
