@@ -26,6 +26,10 @@ public class Case {
     	this.hintHashTable.remove(hint);
     }
     
+    public void disableHint(int hint){
+    	this.hintHashTable.put(hint, 1);
+    }
+    
     public Integer getNext(int index){
         for(int i=index+1; i <= 9; ++i){
             if(hintHashTable.get(i) != null)

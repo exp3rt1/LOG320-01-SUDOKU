@@ -15,6 +15,7 @@ public class Algorithme
 	
 	public void algorithme()
 	{
+		// Le temps commence ici
 		this.cleanupHints();
 		this.resoudreSudoku(0,0);
 		
@@ -26,6 +27,7 @@ public class Algorithme
 		else
 		{
 			// une solution est possible
+			// Le temps termine ici
 		}
 	}
 	
@@ -65,7 +67,7 @@ public class Algorithme
 					tableCase.caseValue = iterateur.next().getKey();
 				
 				// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-				this.table.removeHints(ligne, colonne, tableCase.caseValue);
+				this.table.disableHints(ligne, colonne, tableCase.caseValue);
 				
 				// si la case mise est valide
 				if(!table.caseValide(tableCase.caseValue, ligne, colonne))

@@ -20,9 +20,23 @@ public class Table {
     	}
     	//TODO: this.getBlock(line, column).removeHints(hint);
     }
+    public void disableHints(int line, int column, int hint){
+    	this.getBlock(line, column);
+    	for(int i=0; i != totalNbOfLines; ++i){
+    		for(int j=0; j !=totalNbOfColumns; ++j){
+    			if(i == line || j == column)
+    				this.getCase(i,j).disableHint(hint);
+    		}
+    	}
+    }
+    
     
     public void removeBlockHints(Block block){
       //TODO: block
+    }
+    
+    public void disableBlockHints(Block block){
+    	
     }
     
     public Case getCase(int line, int column){
