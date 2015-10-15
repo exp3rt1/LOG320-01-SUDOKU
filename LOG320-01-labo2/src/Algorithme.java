@@ -104,9 +104,9 @@ public class Algorithme
 		int compareValue;
 		Block currentBlock;
 		
-		for(int j = 0; j<9; j++)//col
+		for(int i = 0; i<9; i++)//lig
 		{
-			for(int i = 0; i<9; i++)//lig
+			for(int j = 0; j<9; j++)//col
 			{
 				currentCase = this.table.getCase(i, j);
 				
