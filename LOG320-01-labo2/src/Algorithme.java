@@ -65,8 +65,8 @@ public class Algorithme
 				Entry<Integer,Integer> entree = iterateur.next();
 				if(entree.getValue() == 0)
 				{
-					tableCase.caseValue = iterateur.next().getKey();
-				
+					tableCase.caseValue = entree.getKey();
+					
 					// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
 					this.table.disableHints(ligne, colonne, tableCase.caseValue);
 				}
@@ -91,7 +91,7 @@ public class Algorithme
 					else
 					{
 						this.resoudreSudoku(ligne, colonne+1);
-						// Remettre les hints enlevés
+						// Remettre les hints enleves
 						this.putHintsBack(ligne, colonne);
 					}
 				}
