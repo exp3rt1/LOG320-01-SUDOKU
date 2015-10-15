@@ -31,7 +31,7 @@ public class SudokuUI extends JFrame
 				
 				int posY = i*25+10 + (int)Math.floor(i/3) * 5, posX = j*25+10 + (int)Math.floor(j/3) * 5;
 				
-				sudoku[i][j].setBounds(posY, posX, 20, 20);
+				sudoku[i][j].setBounds(posX, posY, 20, 20);
 				sudoku[i][j].setHorizontalAlignment(JTextField.CENTER);
 			}
 		}		

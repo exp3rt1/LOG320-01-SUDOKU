@@ -16,7 +16,7 @@ public class Algorithme
 	public Case[][] algorithme()
 	{
 		// Le temps commence ici
-		this.cleanupHints();
+		// this.cleanupHints();
 		this.resoudreSudoku(0,0);
 		
 		if(!this.reussi)
@@ -56,52 +56,61 @@ public class Algorithme
 				this.resoudreSudoku(ligne, colonne+1);
 			}
 		}
-		
-		Iterator<Map.Entry<Integer, Integer>> iterateur = tableCase.hintHashTable.entrySet().iterator();
-		
-		while(iterateur.hasNext())
+		else
 		{
-			if(!this.reussi)
+		
+			Iterator<Map.Entry<Integer, Integer>> iterateur = tableCase.hintHashTable.entrySet().iterator();
+			
+			while(iterateur.hasNext())
 			{
-				// Met la valeur dans le tableau
-				Entry<Integer,Integer> entree = iterateur.next();
-				if(entree.getValue() == 0)
+				if(!this.reussi)
 				{
-					tableCase.caseValue = entree.getKey();
-					
-					System.out.print(ligne + " , " + colonne + " = " + tableCase.caseValue + "\n");
-					//afficheTable();
-					
-					// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-					this.table.disableHints(ligne, colonne, tableCase.caseValue);
-				
-				
-					// si la case mise est valide
-					if(table.caseValide(tableCase.caseValue, ligne, colonne))
+					// Met la valeur dans le tableau
+					Entry<Integer,Integer> entree = iterateur.next();
+					if(entree.getValue() == 0)
 					{
-						if(colonne == 8)
+						tableCase.caseValue = entree.getKey();
+						
+						System.out.print(ligne + " , " + colonne + " = " + tableCase.caseValue + "\n");
+						
+						// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
+						// this.table.disableHints(ligne, colonne, tableCase.caseValue);
+					
+					
+						// si la case mise est valide
+						if(table.caseValide(tableCase.caseValue, ligne, colonne))
 						{
-							if(ligne != 8)
+							if(colonne == 8)
 							{
-								// derniere
-								this.resoudreSudoku(ligne+1, 0);
-								// Remettre les hints enlevés
-								this.putHintsBack(ligne, colonne);
+								if(ligne != 8)
+								{
+									// derniere
+									this.resoudreSudoku(ligne+1, 0);
+									// Remettre les hints enlevés
+									if(!this.reussi)
+										this.putHintsBack(ligne, colonne);
+								}
+								else
+								{
+									afficheTable();
+									this.reussi = true;
+								}
 							}
 							else
 							{
-								this.reussi = true;
+								this.resoudreSudoku(ligne, colonne+1);
+								// Remettre les hints enleves
+								if(!this.reussi)
+									this.putHintsBack(ligne, colonne);
 							}
 						}
 						else
 						{
-							this.resoudreSudoku(ligne, colonne+1);
-							// Remettre les hints enleves
 							this.putHintsBack(ligne, colonne);
 						}
 					}
-				}
-			}			
+				}			
+			}
 		}
 	}
 
@@ -133,7 +142,8 @@ public class Algorithme
 	 * @param column
 	 */
 	public void putHintsBack(int line, int column){
-	    table.enableHints(line, column, table.getCase(line, column).caseValue);
+		System.out.print("non");
+	    //table.enableHints(line, column, table.getCase(line, column).caseValue);
 	    table.getCase(line, column).caseValue = 0;
 	}
 	
