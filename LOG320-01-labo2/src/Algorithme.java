@@ -13,7 +13,7 @@ public class Algorithme
 		this.table = new Table(cases);
 	}
 	
-	public void algorithme()
+	public Case[][] algorithme()
 	{
 		// Le temps commence ici
 		this.cleanupHints();
@@ -22,12 +22,14 @@ public class Algorithme
 		if(!this.reussi)
 		{
 			// Si ca vient ici, le sudoku est invalid
-			
+			return null;
 		}
 		else
 		{
 			// une solution est possible
 			// Le temps termine ici
+			System.out.print("yeaaaaaahhh");
+			return this.table.getCaseArray();
 		}
 	}
 	

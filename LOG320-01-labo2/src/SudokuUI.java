@@ -87,7 +87,9 @@ public class SudokuUI extends JFrame
 				{
 					System.out.print("Solve");
 					Algorithme algo = new Algorithme(SudokuUI.this.cases);
-					algo.algorithme();
+					SudokuUI.this.cases = algo.algorithme();
+					if(SudokuUI.this.cases != null)
+						SudokuUI.this.afficheSudoku(SudokuUI.this.cases);
 				}
 			}
 		 });

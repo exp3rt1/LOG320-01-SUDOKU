@@ -143,5 +143,10 @@ public class Table {
 		
 		return valide;
     }
+    
+    public Case[][] getCaseArray()
+    {
+    	return this.caseArray;
+    }
 
 }
