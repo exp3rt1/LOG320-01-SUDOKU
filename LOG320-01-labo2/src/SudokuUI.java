@@ -1,17 +1,21 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
 import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class SudokuUI extends JFrame 
 {
 	private JTextField sudoku[][] = null;
 	private Case cases[][] = null;
+	private float date1 = 0;
+	private float date2 = 0;
 	
 	public SudokuUI()
 	{
@@ -61,12 +65,11 @@ public class SudokuUI extends JFrame
 		    			  
 		    			  if(SudokuUI.this.cases != null)
 		    			  {
-		    				  System.out.print("Fichier Valide");
 		    				  SudokuUI.this.afficheSudoku(SudokuUI.this.cases);
 		    			  }
 		    			  else
 		    			  {
-		    				  System.out.print("Fichier non Valide");
+		    				  JOptionPane.showMessageDialog(SudokuUI.this, "Le fichier n'est pas du bon ou le sudoku remis a mal été fait!");
 		    			  }
 		    		  } 
 		    		  catch (FileNotFoundException e1) 
@@ -85,9 +88,11 @@ public class SudokuUI extends JFrame
 				//solve
 				if(SudokuUI.this.cases != null)
 				{
-					System.out.print("Solve");
 					Algorithme algo = new Algorithme(SudokuUI.this.cases);
+					SudokuUI.this.date1 = System.currentTimeMillis();
 					SudokuUI.this.cases = algo.algorithme();
+					SudokuUI.this.calculerTemps();
+					
 					if(SudokuUI.this.cases != null)
 						SudokuUI.this.afficheSudoku(SudokuUI.this.cases);
 				}
@@ -104,6 +109,13 @@ public class SudokuUI extends JFrame
 		//Set-up the window
 		
         setVisible(true);
+	}
+	
+	public void calculerTemps()
+	{
+		this.date2 = System.currentTimeMillis();
+		// mettre dans un display box
+		System.out.printf("%.2f",(float)((this.date2-this.date1)/1000));
 	}
 	
 	public void afficheSudoku(Case cases[][])
