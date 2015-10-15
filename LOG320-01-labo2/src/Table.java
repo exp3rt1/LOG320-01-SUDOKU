@@ -16,8 +16,8 @@ public class Table {
     	for(int i=0; i != totalNbOfLines; ++i){
     		for(int j=0; j !=totalNbOfColumns; ++j){
     			if((i == line || j == column) 
-    			        && (line < block.getLineStart() || block.getLineEnd() > line)
-    			        && (column < block.getColumnStart() || block.getColumnEnd() > column))
+    			        && (line < block.getLineStart() || block.getLineEnd() < line)
+    			        && (column < block.getColumnStart() || block.getColumnEnd() < column))
     				this.getCase(i,j).disableHint(hint);
     		}
     	}
@@ -37,8 +37,8 @@ public class Table {
         for(int i=0; i != totalNbOfLines; ++i){
             for(int j=0; j !=totalNbOfColumns; ++j){
                 if((i == line || j == column) 
-                        && (line < block.getLineStart() || block.getLineEnd() > line)
-                        && (column < block.getColumnStart() || block.getColumnEnd() > column))
+                        && (line < block.getLineStart() || block.getLineEnd() < line)
+                        && (column < block.getColumnStart() || block.getColumnEnd() < column))
                     this.getCase(i,j).enableHint(hint);
             }
         }
