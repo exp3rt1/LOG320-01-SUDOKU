@@ -9,7 +9,7 @@ public class LectureFichier
 	
 	public LectureFichier(String nomFichier) throws FileNotFoundException
 	{
-		this.fichier = new FileReader("sudoku1.sud");
+		this.fichier = new FileReader(nomFichier);
 	}
 	
 	public int[][] lecture()
