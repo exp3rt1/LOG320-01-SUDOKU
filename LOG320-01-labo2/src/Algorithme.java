@@ -42,7 +42,7 @@ public class Algorithme
 			{
 				if(ligne != 8)
 				{
-					this.resoudreSudoku(ligne++, 0);
+					this.resoudreSudoku(ligne+1, 0);
 				}
 				else
 				{
@@ -51,7 +51,7 @@ public class Algorithme
 			}
 			else
 			{
-				this.resoudreSudoku(ligne, colonne++);
+				this.resoudreSudoku(ligne, colonne+1);
 			}
 		}
 		
@@ -64,10 +64,12 @@ public class Algorithme
 				// Met la valeur dans le tableau
 				Entry<Integer,Integer> entree = iterateur.next();
 				if(entree.getValue() == 0)
+				{
 					tableCase.caseValue = iterateur.next().getKey();
 				
-				// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-				this.table.disableHints(ligne, colonne, tableCase.caseValue);
+					// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
+					this.table.disableHints(ligne, colonne, tableCase.caseValue);
+				}
 				
 				// si la case mise est valide
 				if(!table.caseValide(tableCase.caseValue, ligne, colonne))
