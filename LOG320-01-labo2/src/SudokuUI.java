@@ -14,12 +14,13 @@ public class SudokuUI extends JFrame
 {
 	private JTextField sudoku[][] = null;
 	private Case cases[][] = null;
-	private float date1 = 0;
-	private float date2 = 0;
+	private long date1 = 0;
+	private long date2 = 0;
+	private JLabel temps = null;
 	
 	public SudokuUI()
 	{
-		this.setSize(350,290);
+		this.setSize(380,300);
 		this.getContentPane().setLayout(null);
 		//declare grid
 		
@@ -37,6 +38,7 @@ public class SudokuUI extends JFrame
 				
 				sudoku[i][j].setBounds(posX, posY, 20, 20);
 				sudoku[i][j].setHorizontalAlignment(JTextField.CENTER);
+				sudoku[i][j].setEditable(false);
 			}
 		}		
 		
@@ -88,8 +90,9 @@ public class SudokuUI extends JFrame
 				//solve
 				if(SudokuUI.this.cases != null)
 				{
-					Algorithme algo = new Algorithme(SudokuUI.this.cases);
+					Algorithme algo = new Algorithme(SudokuUI.this.cases);					
 					SudokuUI.this.date1 = System.currentTimeMillis();
+					
 					SudokuUI.this.cases = algo.algorithme();
 					SudokuUI.this.calculerTemps();
 					
@@ -99,33 +102,49 @@ public class SudokuUI extends JFrame
 			}
 		 });
 		
+		this.temps = new JLabel("Temps(s) : ");
+		this.add(this.temps);
+		this.temps.setBounds(250, 90, 120, 20);
+		
 		//add controls and place them
-
 		add(btnSolve);
 		btnSolve.setBounds(250, 10, 80, 20);
 		add(btnImport);
 		btnImport.setBounds(250, 40, 80, 20);
 		
-		//Set-up the window
-		
+		//Set-up the window		
         setVisible(true);
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
 	}
 	
 	public void calculerTemps()
 	{
 		this.date2 = System.currentTimeMillis();
+		float total = this.date2-this.date1;
 		// mettre dans un display box
-		System.out.printf("%.2f",(float)((this.date2-this.date1)/1000));
+		this.temps.setText(this.temps.getText() + String.format("%.3f", total/1000));
 	}
 	
 	public void afficheSudoku(Case cases[][])
 	{
+		this.reinitialiserSudoku();
 		for (int i = 0; i < sudoku.length; i++) 
 		{
 			for (int j = 0; j < sudoku.length; j++) 
 			{
 				if(cases[i][j].caseValue != 0)
 					sudoku[i][j].setText("" + cases[i][j].caseValue);
+			}
+		}
+	}
+	
+	public void reinitialiserSudoku()
+	{
+		for (int i = 0; i < sudoku.length; i++) 
+		{
+			for (int j = 0; j < sudoku.length; j++) 
+			{
+				sudoku[i][j].setText("");
 			}
 		}
 	}

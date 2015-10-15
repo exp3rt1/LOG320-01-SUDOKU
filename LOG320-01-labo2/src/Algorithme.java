@@ -137,7 +137,7 @@ public class Algorithme
 	 */
 	public void putHintsBack(int line, int column)
 	{
-	    //table.enableHints(line, column, table.getCase(line, column).caseValue);
+	    // table.enableHints(line, column, table.getCase(line, column).caseValue);
 	    table.getCase(line, column).caseValue = 0;
 	}
 	
