@@ -69,7 +69,7 @@ public class Algorithme
 					tableCase.caseValue = entree.getKey();
 					
 					// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-					// this.table.disableHints(ligne, colonne, tableCase.caseValue);
+					this.table.disableHints(ligne, colonne, tableCase.caseValue);
 				
 				
 					// si la case mise est valide
@@ -83,11 +83,11 @@ public class Algorithme
 								
 								// Remettre les hints enlevés
 								if(!this.reussi)
-									this.putHintsBack(ligne, colonne);
+									this.putHintsBack(ligne, colonne, tableCase.caseValue);
 							}
 							else
 							{
-								// derniere
+								// dernier
 								this.reussi = true;
 							}
 						}
@@ -96,7 +96,7 @@ public class Algorithme
 							this.resoudreSudoku(ligne, colonne+1);
 							// Remettre les hints enleves
 							if(!this.reussi)
-								this.putHintsBack(ligne, colonne);
+								this.putHintsBack(ligne, colonne, tableCase.caseValue);
 						}
 					}
 					else
@@ -112,12 +112,10 @@ public class Algorithme
 	public void cleanupHints()
 	{
 		Case currentCase;
-		int compareValue;
-		Block currentBlock;
 		
-		for(int i = 0; i<9; i++)//lig
+		for(int i = 0; i < 9; i++)//lig
 		{
-			for(int j = 0; j<9; j++)//col
+			for(int j = 0; j < 9; j++)//col
 			{
 				currentCase = this.table.getCase(i, j);
 				
@@ -135,9 +133,9 @@ public class Algorithme
 	 * @param line
 	 * @param column
 	 */
-	public void putHintsBack(int line, int column)
+	public void putHintsBack(int line, int column, int hint)
 	{
-	    // table.enableHints(line, column, table.getCase(line, column).caseValue);
+	    table.enableHints(line, column, hint);
 	    table.getCase(line, column).caseValue = 0;
 	}
 	

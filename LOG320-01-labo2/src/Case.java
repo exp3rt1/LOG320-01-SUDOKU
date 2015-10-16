@@ -6,9 +6,11 @@ public class Case {
     public Hashtable<Integer, Integer> hintHashTable = new Hashtable<Integer, Integer>();
     public int caseValue;
     
-    public Case(int value){
+    public Case(int value)
+    {
         this.caseValue = value;
-        for(int i=1; i != 10; ++i){
+        for(int i=9; i > 0; i--)
+        {
             hintHashTable.put(i, 0);
         }
     }
@@ -23,19 +25,24 @@ public class Case {
      * Réduit le nombre de disable de l'indice jusqu'à 0
      * @param hint
      */
-    public void enableHint(int hint){
-        if(this.hintHashTable.get(hint) > 0)
-            this.hintHashTable.put(hint, this.hintHashTable.get(hint)-1);
+    public void enableHint(int hint)
+    {
+    	int value = this.hintHashTable.get(hint);
+    	
+        if(value > 0)
+            this.hintHashTable.put(hint, value-1);
     }
     
     /**
      * Permet au hint de la case d'être désactivé selon le nombre de fois appelé
      * @param hint
      */
-    public void disableHint(int hint){
-        if(this.hintHashTable.get(hint) <= 3)
-            this.hintHashTable.put(hint, this.hintHashTable.get(hint)+1);
-    	//this.hintHashTable.put(hint, 1);
+    public void disableHint(int hint)
+    {
+    	int value = this.hintHashTable.get(hint);
+    	
+        if(value < 3)
+            this.hintHashTable.put(hint, value+1);
     }
     
     public Integer getNext(int index){

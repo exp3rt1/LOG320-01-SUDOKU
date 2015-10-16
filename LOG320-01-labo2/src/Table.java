@@ -1,69 +1,111 @@
 
-public class Table {
+public class Table 
+{
 	private int totalNbOfLines, totalNbOfColumns;
-	private int maxLength = 3;
 	private Case[][] caseArray;
 
-	public Table(Case[][] caseArray) {
-		totalNbOfLines=9;
-		totalNbOfColumns=9;
+	public Table(Case[][] caseArray)
+	{
+		totalNbOfLines = 9;
+		totalNbOfColumns = 9;
 		this.caseArray = caseArray;
 	}
 	
     
-    public void disableHints(int line, int column, int hint){
-    	Block block = this.getBlock(line, column);
-    	for(int i=0; i != totalNbOfLines; ++i){
-    		for(int j=0; j !=totalNbOfColumns; ++j){
-    			if((i == line || j == column) 
-    			        && !((block.getLineStart() <= i && i <= block.getLineEnd())
-    			        && (block.getColumnStart() <= j && j <= block.getColumnEnd())))
-    				this.getCase(i,j).disableHint(hint);
-    		}
-    	}
+    public void disableHints(int line, int column, int hint)
+    {
+    	Block block1, block2;
     	
-    	disableBlockHints(block, hint);
+    	block1 = this.getBlock(line, column);
+    	
+    	// Ligne (de haut en bas)
+    	for (int i = 0; i < totalNbOfLines; i++) 
+    	{
+    		block2 = this.getBlock(i,column);
+    		
+    		// if(this.getCase(i, column).caseValue == 0 && i != line)
+    		if(!(block1.getLineStart() == block2.getLineStart() && block1.getColumnStart() == block2.getColumnStart()))
+    			this.getCase(i,column).disableHint(hint);
+		}
+    	
+    	// colonne (de gauche à droite)
+    	for (int i = 0; i < totalNbOfColumns; i++) 
+    	{
+    		block2 = this.getBlock(line,i);
+    		
+    		// if(this.getCase(line, i).caseValue == 0 && i != column)
+    		if(!(block1.getLineStart() == block2.getLineStart() && block1.getColumnStart() == block2.getColumnStart()))
+    			this.getCase(line,i).disableHint(hint);
+		}
+    	
+    	disableBlockHints(block1, line, column, hint);
     }
     
-    public void disableBlockHints(Block block, int hint){
-    	for(int i=block.getLineStart(); i != block.getLineEnd(); ++i){
-    	    for(int j=block.getColumnStart(); j !=block.getColumnEnd(); ++j)
+    public void disableBlockHints(Block block, int line, int column, int hint)
+    {
+    	for(int i=block.getLineStart(); i < block.getLineEnd(); ++i)
+    	{
+    	    for(int j=block.getColumnStart(); j < block.getColumnEnd(); ++j)
+    	    {
+    	    	// if(this.getCase(i, j).caseValue == 0 && (i != line && j != column))
     	        this.getCase(i, j).disableHint(hint);
+    	    }
     	}
     }
     
-    public void enableHints(int line, int column, int hint){
-        Block block = this.getBlock(line, column);
-        for(int i=0; i != totalNbOfLines; ++i){
-            for(int j=0; j !=totalNbOfColumns; ++j){
-                if((i == line || j == column) 
-                        && !((block.getLineStart() <= i && i <= block.getLineEnd())
-                        && (block.getColumnStart() <= j && j <= block.getColumnEnd())))
-                    this.getCase(i,j).enableHint(hint);
+    public void enableHints(int line, int column, int hint)
+    {
+    	
+    	Block block1, block2;
+    	
+    	block1 = this.getBlock(line, column);
+    	
+    	// Ligne (de haut en bas)
+    	for (int i = 0; i < totalNbOfLines; i++) 
+    	{
+    		block2 = this.getBlock(i,column);
+    		
+    		// if(this.getCase(i, column).caseValue == 0 && i != line)
+    		if(!(block1.getLineStart() == block2.getLineStart() && block1.getColumnStart() == block2.getColumnStart()))
+    			this.getCase(i,column).enableHint(hint);
+		}
+    	
+    	// colonne (de gauche à droite)
+    	for (int i = 0; i < totalNbOfColumns; i++) 
+    	{
+    		block2 = this.getBlock(line,i);
+    		
+    		// if(this.getCase(line, i).caseValue == 0 && i != column)
+    		if(!(block1.getLineStart() == block2.getLineStart() && block1.getColumnStart() == block2.getColumnStart()))
+    			this.getCase(line,i).enableHint(hint);
+		}
+        
+        enableBlockHints(block1, line, column, hint);
+    }
+    
+    private void enableBlockHints(Block block, int line, int column, int hint)
+    {
+        for(int i=block.getLineStart(); i != block.getLineEnd(); ++i)
+        {
+            for(int j=block.getColumnStart(); j != block.getColumnEnd(); ++j)
+            {
+            	// if(this.getCase(i, j).caseValue == 0 && (i != line && j != column))
+            	this.getCase(i, j).enableHint(hint);
             }
         }
-        
-        enableBlockHints(block, hint);
-    }
+    }    
     
-    private void enableBlockHints(Block block, int hint){
-        for(int i=block.getLineStart(); i != block.getLineEnd(); ++i){
-            for(int j=block.getColumnStart(); j !=block.getColumnEnd(); ++j)
-                this.getCase(i, j).enableHint(hint);
-        }
-    }
-    
-    
-    public Case getCase(int line, int column){
+    public Case getCase(int line, int column)
+    {
     	return caseArray[line][column];
     }
     
-    public Block getBlock(int line, int column){
+    public Block getBlock(int line, int column)
+    {
         int blockLine = (int) Math.floor(line/3) * 3;
         int blockColumn = (int) Math.floor(column/3) * 3;
     	
-    	Block block = new Block(blockLine,blockLine+2,blockColumn, blockColumn+2);
-    	return block;
+    	return new Block(blockLine, blockLine+3, blockColumn, blockColumn+3);
     }
     
     public boolean caseValide(int nombre, int ligne, int colonne)
@@ -87,7 +129,7 @@ public class Table {
     {
     	boolean valide = true;
     	
-    	for(int i=0; i < 9; i++)
+    	for(int i=0; i < totalNbOfLines; i++)
 		{
 			if(caseArray[i][colonne].caseValue == nombre && nombre != 0)
 			{
@@ -106,7 +148,7 @@ public class Table {
     {
     	boolean valide = true;
     	
-    	for(int i=0; i < 9; i++)
+    	for(int i=0; i < totalNbOfColumns; i++)
 		{
 			if(caseArray[ligne][i].caseValue == nombre && nombre != 0)
 			{
