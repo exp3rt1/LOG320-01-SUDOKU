@@ -1,18 +1,58 @@
 import java.util.ArrayList;
+import java.util.Hashtable;
 
 
-public class Block {
-        private int maxLength = 3;
+public class Block 
+{
         private int lineStart;
         private int lineEnd;
         private int columnStart;
         private int columnEnd;
+        private Hashtable<Integer, Integer> indiceTable = new Hashtable<Integer, Integer>();
+    	private int longueur = 9;
+    	
+    	public Block()
+    	{
+    		this.initialiseIndiceTable();
+    	}
         
-        public Block(int lineStart, int lineEnd, int columnStart, int columnEnd){
+        public Block(int lineStart, int lineEnd, int columnStart, int columnEnd)
+        {
             this.lineStart = lineStart;
             this.lineEnd = lineEnd;
             this.columnStart = columnStart;
             this.columnEnd = columnEnd;
+        }
+        
+        public void initialiseIndiceTable()
+    	{
+    		for (int i = this.longueur; i > 0; i--) 
+    		{
+    			this.indiceTable.put(i, 0);
+    		}
+    	}
+        
+        /**
+         * Réduit le nombre de disable de l'indice jusqu'à 0
+         * @param hint
+         */
+        public void enableHint(int hint)
+        {
+        	this.indiceTable.put(hint, 0);
+        }
+        
+        /**
+         * Permet au hint de la case d'être désactivé selon le nombre de fois appelé
+         * @param hint
+         */
+        public void disableHint(int hint)
+        {
+        	this.indiceTable.remove(hint);
+        }
+        
+        public Hashtable<Integer, Integer> getIndice()
+        {
+        	return this.indiceTable;
         }
         
         public int getLineStart() {

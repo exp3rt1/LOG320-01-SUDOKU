@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -16,7 +17,7 @@ public class Algorithme
 	public Case[][] algorithme()
 	{
 		// Le temps commence ici
-		this.cleanupHints();
+		// this.cleanupHints();
 		this.resoudreSudoku(0,0);
 		
 		if(!this.reussi)
@@ -58,23 +59,26 @@ public class Algorithme
 		else
 		{
 		
-			Iterator<Map.Entry<Integer, Integer>> iterateur = tableCase.hintHashTable.entrySet().iterator();
+			// Iterator<Map.Entry<Integer, Integer>> iterateur = this.table.getIndicesCase(tableCase, ligne, colonne).entrySet().iterator();
+			ArrayList<Integer> liste = this.table.getIndicesCase(tableCase, ligne, colonne);
+			Entry<Integer,Integer> entree;
 			
-			while(iterateur.hasNext() && !this.reussi)
+			//while(iterateur.hasNext() && !this.reussi)
+			//{
+			for (int i = 0; i < liste.size() && !this.reussi; i++) 
 			{
 				// Met la valeur dans le tableau
-				Entry<Integer,Integer> entree = iterateur.next();
-				if(entree.getValue() == 0)
-				{
-					tableCase.caseValue = entree.getKey();
+				// entree = iterateur.next();
+				//if(entree.getValue() == 0)
+				
+					tableCase.caseValue = liste.get(i);
 					
-					// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-					this.table.disableHints(ligne, colonne, tableCase.caseValue);
-				
-				
 					// si la case mise est valide
 					if(table.caseValide(tableCase.caseValue, ligne, colonne))
 					{
+						// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
+						this.table.disableHints(ligne, colonne, tableCase.caseValue);
+						
 						if(colonne == 8)
 						{
 							if(ligne != 8)
@@ -103,7 +107,7 @@ public class Algorithme
 					{
 						tableCase.caseValue = 0;
 					}
-				}			
+							
 			}
 		}
 	}
