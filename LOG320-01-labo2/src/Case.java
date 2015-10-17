@@ -1,11 +1,11 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 
 public class Case 
 {
-    private ArrayList<Integer> hintHashTable = new ArrayList();
-	// public Hashtable<Integer, Integer> hintHashTable = new Hashtable<Integer, Integer>();
+	public HashMap<Integer, Integer> hintHashTable = new HashMap<Integer, Integer>();
     public int caseValue;
     
     public Case(int value)
@@ -13,19 +13,19 @@ public class Case
         this.caseValue = value;
     }
     
-    public ArrayList<Integer> getIndice(Ligne ligne, Colonne colonne, Block block)
+    public HashMap<Integer, Integer> getIndice(Ligne ligne, Colonne colonne, Block block)
     {
     	hintHashTable.clear();
     	
     	for (int i = 1; i < ligne.getIndice().size()+1; i++) 
     	{
-    		if(ligne.getIndice().containsKey(i))
+    		if(ligne.getIndice().get(i) == 0)
     		{
-    			if(colonne.getIndice().containsKey(i))
+    			if(colonne.getIndice().get(i) == 0)
     			{
-    				if(block.getIndice().containsKey(i))
+    				if(block.getIndice().get(i) == 0)
         			{
-    					hintHashTable.add(i);
+    					hintHashTable.put(i, 0);
         			}
     			}
     		}

@@ -1,9 +1,10 @@
+import java.util.HashMap;
 import java.util.Hashtable;
 
 
 public class Ligne 
 {
-	private Hashtable<Integer, Integer> indiceTable = new Hashtable<Integer, Integer>();
+	private HashMap<Integer, Integer> indiceTable = new HashMap<Integer, Integer>();
 	private int longueur = 9;
 	
 	public Ligne()
@@ -34,10 +35,10 @@ public class Ligne
      */
     public void disableHint(int hint)
     {
-        this.indiceTable.remove(hint);
+        this.indiceTable.put(hint, 1);
     }
     
-    public Hashtable<Integer, Integer> getIndice()
+    public HashMap<Integer, Integer> getIndice()
     {
     	return this.indiceTable;
     }

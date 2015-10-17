@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Hashtable;
 
 
@@ -60,7 +61,7 @@ public class Table
         this.getBlock(line, column).enableHint(hint);
     }
     
-    public ArrayList<Integer> getIndicesCase(Case c, int line, int column)
+    public HashMap<Integer, Integer> getIndicesCase(Case c, int line, int column)
     {    	
     	return c.getIndice(ligneArray[line], colonneArray[column], this.getBlock(line, column));
     }

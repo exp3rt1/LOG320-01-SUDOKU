@@ -59,19 +59,16 @@ public class Algorithme
 		else
 		{
 		
-			// Iterator<Map.Entry<Integer, Integer>> iterateur = this.table.getIndicesCase(tableCase, ligne, colonne).entrySet().iterator();
-			ArrayList<Integer> liste = this.table.getIndicesCase(tableCase, ligne, colonne);
+			Iterator<Map.Entry<Integer, Integer>> iterateur = this.table.getIndicesCase(tableCase, ligne, colonne).entrySet().iterator();
 			Entry<Integer,Integer> entree;
 			
-			//while(iterateur.hasNext() && !this.reussi)
-			//{
-			for (int i = 0; i < liste.size() && !this.reussi; i++) 
+			while(iterateur.hasNext() && !this.reussi)
 			{
 				// Met la valeur dans le tableau
-				// entree = iterateur.next();
-				//if(entree.getValue() == 0)
-				
-					tableCase.caseValue = liste.get(i);
+				entree = iterateur.next();
+				if(entree.getValue() == 0)
+				{
+					tableCase.caseValue = entree.getKey();
 					
 					// si la case mise est valide
 					if(table.caseValide(tableCase.caseValue, ligne, colonne))
@@ -90,14 +87,12 @@ public class Algorithme
 									this.putHintsBack(ligne, colonne, tableCase.caseValue);
 							}
 							else
-							{
-								// dernier
 								this.reussi = true;
-							}
 						}
 						else
 						{
 							this.resoudreSudoku(ligne, colonne+1);
+							
 							// Remettre les hints enleves
 							if(!this.reussi)
 								this.putHintsBack(ligne, colonne, tableCase.caseValue);
@@ -107,7 +102,7 @@ public class Algorithme
 					{
 						tableCase.caseValue = 0;
 					}
-							
+				}		
 			}
 		}
 	}
