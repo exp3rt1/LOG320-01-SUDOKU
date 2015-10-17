@@ -8,6 +8,7 @@ public class Algorithme
 {
 	private Table table = null;
 	private boolean reussi = false;
+	private int noeud = 0;
 	
 	public Algorithme(Case[][] cases)
 	{
@@ -27,6 +28,7 @@ public class Algorithme
 		}
 		else
 		{
+			System.out.print(this.noeud);
 			// une solution est possible
 			// Le temps termine ici
 			return this.table.getCaseArray();
@@ -35,6 +37,7 @@ public class Algorithme
 	
 	public void resoudreSudoku(int ligne, int colonne)
 	{
+		noeud++;
 		Case tableCase = table.getCase(ligne, colonne);
 		
 		// Si la case a déjà une valeur, donc le nombre d'indice est à 0
