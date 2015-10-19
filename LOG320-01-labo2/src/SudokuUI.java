@@ -98,6 +98,8 @@ public class SudokuUI extends JFrame
 					
 					if(SudokuUI.this.cases != null)
 						SudokuUI.this.afficheSudoku(SudokuUI.this.cases);
+					else
+						JOptionPane.showMessageDialog(SudokuUI.this, "Pas de solutions!");
 				}
 			}
 		 });
