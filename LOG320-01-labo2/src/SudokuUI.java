@@ -1,6 +1,5 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
 import java.io.FileNotFoundException;
 
 import javax.swing.JButton;
@@ -12,6 +11,7 @@ import javax.swing.JTextField;
 
 public class SudokuUI extends JFrame 
 {
+	private static final long serialVersionUID = 1L;
 	private JTextField sudoku[][] = null;
 	private Case cases[][] = null;
 	private long date1 = 0;
@@ -41,13 +41,6 @@ public class SudokuUI extends JFrame
 				sudoku[i][j].setEditable(false);
 			}
 		}		
-		
-		JLabel lblSource = new JLabel("Source");
-		JLabel lblSourcePath = new JLabel("No file selected");
-		
-		JLabel lblDestination = new JLabel("Destination");
-		JLabel lblDestinationPath = new JLabel("No destination selected");
-		
 
 		JButton btnImport = new JButton("Import");
 		btnImport.addActionListener(new ActionListener()
