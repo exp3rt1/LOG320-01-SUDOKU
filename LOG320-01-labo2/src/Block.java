@@ -1,8 +1,7 @@
-import java.util.ArrayList;
 
 
-public class Block {
-        private int maxLength = 3;
+public class Block 
+{
         private int lineStart;
         private int lineEnd;
         private int columnStart;
