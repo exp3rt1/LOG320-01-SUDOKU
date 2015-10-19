@@ -90,6 +90,9 @@ public class LectureFichier
 			for (int j = 0; j < table.length; j++) 
 			{
 				cases[i][j] = new Case(table[i][j]);
+				
+				if(cases[i][j].caseValue != 0)
+					cases[i][j].setDefaultValue(true);
 			}
 		}
 		

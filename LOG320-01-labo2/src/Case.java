@@ -1,9 +1,14 @@
+import java.util.ArrayList;
 import java.util.Hashtable;
 
 
-public class Case {
+public class Case 
+{
     public Hashtable<Integer, Integer> hintHashTable = new Hashtable<Integer, Integer>();
+    private Hashtable<Integer, Integer> indices = new Hashtable<Integer, Integer>();
     public int caseValue;
+    private int nbHints = 9;
+    private boolean isDefaultValue = false;
     
     public Case(int value)
     {
@@ -11,44 +16,72 @@ public class Case {
         for(int i=9; i > 0; i--)
         {
             hintHashTable.put(i, 0);
+            indices.put(i, 0);
         }
-    }
-    
-    public boolean equals(Case o){
-        if(this.caseValue == o.caseValue) 
-            return true;
-        return false;
     }
     
     /**
      * Réduit le nombre de disable de l'indice jusqu'à 0
      * @param hint
      */
-    public void enableHint(int hint)
+    public boolean enableHint(int hint)
     {
-    	int value = this.hintHashTable.get(hint);
-    	
-        if(value > 0)
-            this.hintHashTable.put(hint, value-1);
+    	if(hint != 0)
+    	{
+	    	int value = this.hintHashTable.get(hint);
+	    	
+	        if(value > 0)
+	        {        	
+	            this.hintHashTable.put(hint, value-1);
+	            
+	            if(this.hintHashTable.get(hint) == 0)
+	            {
+	            	this.indices.put(hint, 0);
+	            	return true;
+	            }
+	        }
+    	}
+        return false;
     }
     
     /**
      * Permet au hint de la case d'être désactivé selon le nombre de fois appelé
      * @param hint
      */
-    public void disableHint(int hint)
+    public boolean disableHint(int hint)
     {
     	int value = this.hintHashTable.get(hint);
     	
         if(value < 3)
-            this.hintHashTable.put(hint, value+1);
+        {        	
+        	this.hintHashTable.put(hint, value+1);
+        	this.indices.remove(hint);
+        	
+        	if(this.indices.size() > 1)
+        	{
+        		return true;
+        	}
+        	else if(this.indices.size() == 1)
+        	{
+            	this.caseValue = (int) this.indices.keySet().toArray()[0];
+        		return true;
+        	}
+        	else if(this.indices.size() == 0)
+        	{
+        		return false;
+        	}
+        }
+        
+        return false;
     }
     
-    public Integer getNext(int index){
-        for(int i=index+1; i <= 9; ++i){
-            if(hintHashTable.get(i) != null)
-                return hintHashTable.get(i);
-        }
-        return -1;
+    public void setDefaultValue(boolean value)
+    {
+    	this.isDefaultValue = value;
+    }
+    
+    public boolean getIsDefaultValue()
+    {
+    	return this.isDefaultValue;
     }
 }

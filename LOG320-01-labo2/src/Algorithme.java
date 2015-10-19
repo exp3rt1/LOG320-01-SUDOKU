@@ -7,6 +7,7 @@ public class Algorithme
 {
 	private Table table = null;
 	private boolean reussi = false;
+	private int noeud = 0;
 	
 	public Algorithme(Case[][] cases)
 	{
@@ -17,7 +18,6 @@ public class Algorithme
 	{
 		// Le temps commence ici
 		this.cleanupHints();
-		SudokuUI.date1 = System.currentTimeMillis();
 		this.resoudreSudoku(0,0);
 		
 		if(!this.reussi)
@@ -27,6 +27,7 @@ public class Algorithme
 		}
 		else
 		{
+			System.out.print(this.noeud);
 			// une solution est possible
 			// Le temps termine ici
 			return this.table.getCaseArray();
@@ -35,6 +36,7 @@ public class Algorithme
 	
 	public void resoudreSudoku(int ligne, int colonne)
 	{
+		noeud++;
 		Case tableCase = table.getCase(ligne, colonne);
 		
 		// Si la case a déjà une valeur, donc le nombre d'indice est à 0
@@ -68,44 +70,38 @@ public class Algorithme
 				if(entree.getValue() == 0)
 				{
 					tableCase.caseValue = entree.getKey();
+					this.afficheTable();
 					
-					// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
-					this.table.disableHints(ligne, colonne, tableCase.caseValue);
-				
-				
 					// si la case mise est valide
-					if(table.caseValide(tableCase.caseValue, ligne, colonne))
-					{
-						if(colonne == 8)
-						{
-							if(ligne != 8)
+					// if(table.caseValide(tableCase.caseValue, ligne, colonne))
+					// {
+						// enlever les indices semblables à celui qui vient d'etre insérer sur la ligne, colonnes, et block
+					if(this.table.disableHints(ligne, colonne, tableCase.caseValue))
+					{		
+							this.afficheTable();
+							if(colonne == 8)
 							{
-								this.resoudreSudoku(ligne+1, 0);
-								
-								// Remettre les hints enlevés
-								if(!this.reussi)
-									this.putHintsBack(ligne, colonne, tableCase.caseValue);
+								if(ligne != 8)
+								{
+									this.resoudreSudoku(ligne+1, 0);
+								}
+								else
+								{
+									// dernier
+									this.reussi = true;
+								}
 							}
 							else
 							{
-								// dernier
-								this.reussi = true;
+								this.resoudreSudoku(ligne, colonne+1);
 							}
-						}
-						else
-						{
-							this.resoudreSudoku(ligne, colonne+1);
-							// Remettre les hints enleves
-							if(!this.reussi)
-								this.putHintsBack(ligne, colonne, tableCase.caseValue);
-						}
 					}
-					else
-					{
-						tableCase.caseValue = 0;
-					}
-				}			
+					
+					if(!this.reussi)
+						this.putHintsBack(ligne, colonne, tableCase.caseValue);
+				}
 			}
+			
 		}
 	}
 
@@ -120,9 +116,12 @@ public class Algorithme
 			{
 				currentCase = this.table.getCase(i, j);
 				
-				if (currentCase.caseValue > 0)//if case is empty
+				if (currentCase.getIsDefaultValue())//if case is empty
 				{ 
-					table.disableHints(i, j, currentCase.caseValue);
+					if(!table.disableHints(i, j, currentCase.caseValue))
+					{
+						this.putHintsBack(i, j, currentCase.caseValue);
+					}
 				}
 			}
 		}
