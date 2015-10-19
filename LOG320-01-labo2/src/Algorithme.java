@@ -17,6 +17,7 @@ public class Algorithme
 	{
 		// Le temps commence ici
 		this.cleanupHints();
+		SudokuUI.date1 = System.currentTimeMillis();
 		this.resoudreSudoku(0,0);
 		
 		if(!this.reussi)

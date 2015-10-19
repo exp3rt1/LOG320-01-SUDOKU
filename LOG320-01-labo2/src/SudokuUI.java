@@ -14,8 +14,8 @@ public class SudokuUI extends JFrame
 	private static final long serialVersionUID = 1L;
 	private JTextField sudoku[][] = null;
 	private Case cases[][] = null;
-	private long date1 = 0;
-	private long date2 = 0;
+	static long date1 = 0;
+	static long date2 = 0;
 	private JLabel temps = null;
 	
 	public SudokuUI()
@@ -83,8 +83,7 @@ public class SudokuUI extends JFrame
 				//solve
 				if(SudokuUI.this.cases != null)
 				{
-					Algorithme algo = new Algorithme(SudokuUI.this.cases);					
-					SudokuUI.this.date1 = System.currentTimeMillis();
+					Algorithme algo = new Algorithme(SudokuUI.this.cases);
 					
 					SudokuUI.this.cases = algo.algorithme();
 					SudokuUI.this.calculerTemps();
@@ -97,7 +96,7 @@ public class SudokuUI extends JFrame
 			}
 		 });
 		
-		this.temps = new JLabel("Temps(s) : ");
+		this.temps = new JLabel("Temps : ");
 		this.add(this.temps);
 		this.temps.setBounds(250, 90, 120, 20);
 		
@@ -114,10 +113,10 @@ public class SudokuUI extends JFrame
 	
 	public void calculerTemps()
 	{
-		this.date2 = System.currentTimeMillis();
-		float total = this.date2-this.date1;
+		SudokuUI.date2 = System.currentTimeMillis();
+		float total = SudokuUI.date2-SudokuUI.date1;
 		// mettre dans un display box
-		this.temps.setText(this.temps.getText() + String.format("%.3f", total/1000));
+		this.temps.setText("Temps : " + String.format("%.3f", total/1000));
 	}
 	
 	public void afficheSudoku(Case cases[][])
